@@ -20,7 +20,17 @@ rm -rf gui/build/macos
 
 # 3. Thực hiện build
 echo "🔨 Bắt đầu biên dịch..."
+# Tạo và kích hoạt môi trường ảo nếu chưa tồn tại
+if [ ! -d ".venv" ]; then
+    echo "🛠️ Tạo môi trường ảo..."
+    python3 -m venv .venv
+fi
+echo "⚡ Kích hoạt môi trường ảo..."
 source .venv/bin/activate
+
+# Cài đặt các thư viện cần thiết
+echo "📦 Cài đặt thư viện..."
+pip install -r requirements.txt
 cd gui
 
 # Tạm thời tắt set -e vì flet build có thể ném traceback SystemExit: 0 nhưng thực tế build vẫn thành công
